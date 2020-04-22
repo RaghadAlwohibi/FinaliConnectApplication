@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "468847834464",
+    "firebase_url": "https://iconnect-5c61c.firebaseio.com",
+    "project_id": "iconnect-5c61c",
+    "storage_bucket": "iconnect-5c61c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468847834464:android:6f6884543992021d309a05",
+        "android_client_info": {
+          "package_name": "com.university.iconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468847834464-0hu3iq4c25ln4i5ecs6e5o9bnf8h0ml6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.university.iconnect",
+            "certificate_hash": "945eca6503f4528ecb69a241e7db5bcbd00e8c1d"
+          }
+        },
+        {
+          "client_id": "468847834464-odre5vo316ovn0a8raco33tsg4j18529.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHFNawSey84CZOLiHn3B41Dmn1XwCKGs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468847834464-odre5vo316ovn0a8raco33tsg4j18529.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "468847834464-pp4k5rl2o984tksoil7ct2u0h31bclpr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.theiconnect.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

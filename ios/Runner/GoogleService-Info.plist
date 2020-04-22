@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>468847834464-tct8mrd26b4sm2ja4f6t9lbdfg29vmfd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.468847834464-tct8mrd26b4sm2ja4f6t9lbdfg29vmfd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>468847834464-0hu3iq4c25ln4i5ecs6e5o9bnf8h0ml6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyASql7QeJLVHGtfMwikbTkgTuGlcNlQzEs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>468847834464</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.university.iconnect</string>
+	<key>PROJECT_ID</key>
+	<string>iconnect-5c61c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>iconnect-5c61c.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:468847834464:ios:b744d756227f0ad2309a05</string>
+	<key>DATABASE_URL</key>
+	<string>https://iconnect-5c61c.firebaseio.com</string>
+</dict>
+</plist>
