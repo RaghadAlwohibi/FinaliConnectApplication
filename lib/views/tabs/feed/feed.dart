@@ -268,7 +268,6 @@ class _PostnState extends State<Postn> {
                                               ),
                                               SizedBox(
                                                 width: 155,
-                                              
                                               ),
                                               IconButton(
                                                 icon: Icon(
@@ -1997,10 +1996,28 @@ class _PostnState extends State<Postn> {
                                                       blurRadius: 5)
                                                 ],
                                               ),
-                                              child: CircleAvatar(
-                                                radius: 23,
-                                                backgroundImage: AssetImage(
-                                                    'assets/images/am.png'),
+                                              child: Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 3,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey
+                                                            .withOpacity(.3),
+                                                        offset: Offset(0, 2),
+                                                        blurRadius: 5)
+                                                  ],
+                                                ),
+                                                child: CircleAvatar(
+                                                  radius: 23,
+                                                  backgroundImage: AssetImage(
+                                                      'assets/images/am.png'),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(
