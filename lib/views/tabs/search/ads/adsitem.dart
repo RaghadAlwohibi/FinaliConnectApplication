@@ -1,5 +1,8 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:iconnect/utils/colors.dart';
+import 'package:iconnect/views/tabs/feed/comments.dart';
+import 'package:iconnect/views/tabs/notifications/fullPhoto.dart';
 
 class DetailPage extends StatefulWidget {
   final Object data;
@@ -20,30 +23,31 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
-            bottom: PreferredSize(
-                child: Container(
-                  color: Colors.grey,
-                  height: 0.5,
-                ),
-                preferredSize: Size.fromHeight(4.0)),
-            elevation: 0,
-            brightness: Brightness.light,
-            backgroundColor: scaffoldBackgroundColor,
-            title: Text(data["businessName"],
-              style: Theme.of(context).textTheme.title,
+      appBar: AppBar(
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.grey,
+              height: 0.5,
             ),
-            leading: FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-            centerTitle: true,
+            preferredSize: Size.fromHeight(4.0)),
+        elevation: 0,
+        brightness: Brightness.light,
+        backgroundColor: scaffoldBackgroundColor,
+        title: Text(
+          data["businessName"],
+          style: Theme.of(context).textTheme.title,
+        ),
+        leading: FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         child: Card(
           shape: RoundedRectangleBorder(
@@ -56,38 +60,66 @@ class _DetailPageState extends State<DetailPage> {
               Stack(
                 children: <Widget>[
                   ClipRRect(
-                    child: Image.network(
-                      data["picture"],
-                      height: 120,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      child: FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FullPhoto(url: data["picture"])));
+                          },
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FullPhoto(url: data["picture"])));
+                            },
+                            child: Image.network(
+                              data["picture"],
+                            
+                              width: 380.0,
+                              height: 335,
+                              fit: BoxFit.cover,
+                            ),
+                          ))),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Icon(
-                      (Icons.favorite_border),
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    // onTap: () => showComments(
-                    //   context,
-                    //   id: data["id"],
-                    
-                    //   //imageURL: data.imageURL,
-                    // ),
-                    child: Icon(
-                      (Icons.chat),
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: <Widget>[
+              //     GestureDetector(
+              //       child: Icon(
+              //         (AntIcons.heart_outline),
+              //         color: Colors.grey,
+              //       ),
+              //     ),
+              //     SizedBox(width: 10),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => Comments(
+              //                   postid: data["id"], cret: data["creator"]
+              //                   //   pimageUrl:  doc["imageUrl"],
+              //                   )),
+              //         );
+              //       },
+              //       // onTap: () => showComments(
+              //       //   context,
+              //       //   id: data["id"],
+
+              //       //   //imageURL: data.imageURL,
+              //       // ),
+
+              //       child: Icon(
+              //         (AntIcons.message_outline),
+              //         color: Colors.grey,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
                 child: Column(
@@ -102,8 +134,7 @@ class _DetailPageState extends State<DetailPage> {
                         Text(
                           data["businessName"],
                           style: TextStyle(
-                            fontSize: 26,
-                          ),
+                              fontSize: 26, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -113,7 +144,11 @@ class _DetailPageState extends State<DetailPage> {
                           width: 30,
                           height: 30,
                         ),
-                        Expanded(child: Text('Category: '+data["category"])),
+                        Text(
+                          'Category: ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        Text(data["category"]),
                       ],
                     ),
                     // Row(
@@ -150,10 +185,9 @@ class _DetailPageState extends State<DetailPage> {
                           height: 30,
                         ),
                         Text(
-                          ' About '+ data["businessName"],
+                          ' About ' + data["businessName"],
                           style: TextStyle(
-                            fontSize: 20,
-                          ),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -166,7 +200,6 @@ class _DetailPageState extends State<DetailPage> {
                         Expanded(child: Text(data["description"])),
                       ],
                     ),
-                    
                   ],
                 ),
               ),
@@ -179,13 +212,13 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 // String id;
-  // int date;
-  // String businessName;
-  // String duration;//breif
-  // String description;//description
-  // String category;
-  // String state; 
-  // String picture; 
+// int date;
+// String businessName;
+// String duration;//breif
+// String description;//description
+// String category;
+// String state;
+// String picture;
 
 class DetailPage1 extends StatefulWidget {
   final data;
@@ -206,7 +239,7 @@ class _DetailPage1State extends State<DetailPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         bottom: PreferredSize(
             child: Container(
               color: Colors.grey,
@@ -216,7 +249,8 @@ class _DetailPage1State extends State<DetailPage1> {
         elevation: 0,
         brightness: Brightness.light,
         backgroundColor: scaffoldBackgroundColor,
-        title:  Text(data["businessName"],
+        title: Text(
+          data["businessName"],
           style: Theme.of(context).textTheme.title,
         ),
         leading: FlatButton(
@@ -231,7 +265,7 @@ class _DetailPage1State extends State<DetailPage1> {
         centerTitle: true,
       ),
       body: Container(
-        child: Card(
+       child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -242,37 +276,66 @@ class _DetailPage1State extends State<DetailPage1> {
               Stack(
                 children: <Widget>[
                   ClipRRect(
-                    child: Image.network(
-                      data['picture'],
-                      height: 120,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      child: FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FullPhoto(url: data["picture"])));
+                          },
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FullPhoto(url: data["picture"])));
+                            },
+                            child: Image.network(
+                              data["picture"],
+                            
+                              width: 380.0,
+                              height: 335,
+                              fit: BoxFit.cover,
+                            ),
+                          ))),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  GestureDetector(
-                    child: Icon(
-                      (Icons.favorite_border),
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  GestureDetector(
-                    // onTap: () => showComments(
-                    //   context,
-                    //   id: data.id,
-                    //   //imageURL: data.imageURL,
-                    // ),
-                    child: Icon(
-                      (Icons.chat),
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: <Widget>[
+              //     GestureDetector(
+              //       child: Icon(
+              //         (AntIcons.heart_outline),
+              //         color: Colors.grey,
+              //       ),
+              //     ),
+              //     SizedBox(width: 10),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => Comments(
+              //                   postid: data["id"], cret: data["creator"]
+              //                   //   pimageUrl:  doc["imageUrl"],
+              //                   )),
+              //         );
+              //       },
+              //       // onTap: () => showComments(
+              //       //   context,
+              //       //   id: data["id"],
+
+              //       //   //imageURL: data.imageURL,
+              //       // ),
+
+              //       child: Icon(
+              //         (AntIcons.message_outline),
+              //         color: Colors.grey,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Padding(
                 padding: EdgeInsets.only(bottom: 20.0),
                 child: Column(
@@ -285,10 +348,9 @@ class _DetailPage1State extends State<DetailPage1> {
                           height: 30,
                         ),
                         Text(
-                          data['businessName'],
+                          data["businessName"],
                           style: TextStyle(
-                            fontSize: 26,
-                          ),
+                              fontSize: 26, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -298,7 +360,11 @@ class _DetailPage1State extends State<DetailPage1> {
                           width: 30,
                           height: 30,
                         ),
-                        Expanded(child: Text('Category: '+data['category'])),
+                        Text(
+                          'Category: ',
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        Text(data["category"]),
                       ],
                     ),
                     // Row(
@@ -310,14 +376,14 @@ class _DetailPage1State extends State<DetailPage1> {
                     //     Expanded(
                     //         child: InkWell(
                     //       onTap: () async {
-                    //         if (await canLaunch(data.link)) {
-                    //           await launch(data.link);
+                    //         if (await canLaunch(data["link"])) {
+                    //           await launch(data["link"]);
                     //         } else {
-                    //           throw 'Could not launch ${data.link}';
+                    //           throw 'Could not launch ${data["link"]}';
                     //         }
                     //       },
                     //       child: Text(
-                    //         data.link,
+                    //         data["link"],
                     //         style: TextStyle(
                     //             color: Colors.blue,
                     //             decoration: TextDecoration.underline),
@@ -335,10 +401,9 @@ class _DetailPage1State extends State<DetailPage1> {
                           height: 30,
                         ),
                         Text(
-                          ' About '+data["businessName"],
+                          ' About ' + data["businessName"],
                           style: TextStyle(
-                            fontSize: 20,
-                          ),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -348,10 +413,9 @@ class _DetailPage1State extends State<DetailPage1> {
                           width: 30,
                           height: 30,
                         ),
-                        Expanded(child: Text(data['description'])),
+                        Expanded(child: Text(data["description"])),
                       ],
                     ),
-                    
                   ],
                 ),
               ),

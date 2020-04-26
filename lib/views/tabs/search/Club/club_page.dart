@@ -1,3 +1,4 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
@@ -214,8 +215,6 @@ elevation: 0,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Icon(Icons.comment,
-                                            color: Colors.grey,),
                                             SizedBox(
                                               width: 20,
                                             ),

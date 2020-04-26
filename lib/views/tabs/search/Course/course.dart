@@ -60,6 +60,7 @@ class _CoursePageState extends State<CoursePage> {
       coursePostModelList.add(CoursePostModel(
         text: post.data['text'] ?? "",
         imgUrl: post.data['attach'] ?? "",
+        
       ));
     }
     setState(() {});
@@ -160,7 +161,6 @@ class _CoursePageState extends State<CoursePage> {
             color: Color(0xFF79bda0),
           ),
         ),
-        
       ),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -265,6 +265,7 @@ class _CoursePageState extends State<CoursePage> {
                     textColor: Colors.white,
                     onPressed: () {
                       followCourse();
+                      
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),
@@ -362,10 +363,6 @@ class _CoursePageState extends State<CoursePage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Icon(
-                                              Icons.comment,
-                                              color: Colors.grey,
-                                            ),
                                             SizedBox(
                                               width: 20,
                                             ),
@@ -427,6 +424,7 @@ class _CoursePageState extends State<CoursePage> {
 class CoursePostModel {
   String text;
   String imgUrl;
+  
 
   CoursePostModel({
     this.text,

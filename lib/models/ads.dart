@@ -1,69 +1,90 @@
-import 'package:iconnect/utils/utils.dart';
+import 'dart:convert';
 
 class Ads {
   String id;
-  int date;
-  String businessName;
-  String duration;//breif
-  String description;//description
+  String picture;
   String category;
-  String state; 
-  String picture; 
+  String description;
+  String businessName;
+  
+  Ads({
+    this.id,
+    this.picture,
+    this.category,
+    this.description,
+    this.businessName,
+    
+  });
 
-
-  Ads(
-      {this.id,
-      this.date,
-      this.duration,
-      this.description,
-      this.businessName,
-      this.state,
-      this.category,
-      this.picture,
-     });
-
-  factory Ads.fromJson(Map<String, dynamic> json) {
- 
-
-    var ads = Ads(
-        id: json['id'],
-        date: json['date'],
-        duration: json['duration'],
-        description: json['description'],
-        businessName: json['businessName'],
-        state: json['state'],
-        category: json['category'],
-        picture: json['picture'],
-
-        );
-        
-
-    return ads;
+  Ads copyWith({
+    String id,
+    String picture,
+    String category,
+    String description,
+    String businessName,
+    
+  }) {
+    return Ads(
+      id: id ?? this.id,
+      picture: picture ?? this.picture,
+      category: category ?? this.category,
+      description: description ?? this.description,
+      businessName: businessName ?? this.businessName,
+      
+    );
   }
- 
-  static Map<String, dynamic> toJson(Ads ads) {
+
+  Map<String, dynamic> toMap() {
     return {
-      'id': ads.id,
-      'date': ads.date,
-      'duration':ads.duration,
-      'description': ads.description,
-      'businessName': ads.businessName,
-      'state': ads.state,
-      'category': ads.category,
-      'picture': ads.picture,
+      'id': id,
+      'picture': picture,
+      'category': category,
+      'description': description,
+      'businessName': businessName,
+      
     };
   }
-}
 
-final List<Ads> ads = [
-  Ads(
-      id: 'lala',
-      date: DateTime.now().millisecondsSinceEpoch,
-      duration: 'Hunger',
-      description: 'I have found this glasses. Does it belong to anybody?',
-      businessName: 'I have found this glasses. Does it belong to anybody?',
-      category: 'Food',
-      picture: AvailableImages.lostItemImage2,
-      state:'accepted'),
- 
-];
+  static Ads fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return Ads(
+      id: map['id'],
+      picture: map['picture'],
+      category: map['category'],
+      description: map['description'],
+      businessName: map['businessName'],
+     
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  static Ads fromJson(String source) => fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Ads(id: $id, picture: $picture, category: $category, description: $description, businessName: $businessName,)';
+  }
+
+  @override
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is Ads &&
+        o.id == id &&
+        o.picture == picture &&
+        o.category == category &&
+        o.description == description &&
+        o.businessName == businessName;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        picture.hashCode ^
+        category.hashCode ^
+        description.hashCode ^
+        businessName.hashCode;
+  }
+}

@@ -9,10 +9,12 @@ class User {
   bool isAdmin = false;
   String username;
   String bio;
+  List<String> followed_courses;
   User(
       {this.id,
       this.email,
       this.name,
+      this.followed_courses,
       this.photo,
       this.isAdmin = false,
       this.bio,
@@ -22,6 +24,7 @@ class User {
   factory User.fromJson(Map<dynamic, dynamic> doc) {
     return User(
         id: doc['id'],
+        followed_courses: doc['followed_courses'] ?? [],
         major: doc['major'] ?? 'CS',
         email: doc['email'],
         username: doc['username'],
@@ -35,14 +38,12 @@ class User {
       'id': user.id,
       'major': user.major,
       'email': user.email,
+      'followed_courses': user.followed_courses,
       'username': user.username,
       'name': user.name,
       'bio': user.bio,
       'isAdmin': user.isAdmin,
       'photo': user.photo,
-      
     };
   }
 }
-
-

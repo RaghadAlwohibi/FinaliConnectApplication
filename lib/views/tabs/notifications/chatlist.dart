@@ -170,7 +170,9 @@ class MainScreenState extends State<MainScreen> {
                           Container(
                             child: Text(
                               '${document['name']}',
-                              style: TextStyle(color: Colors.black),
+                              style: Theme.of(context).textTheme.subhead.apply(
+                    color: Colors.black
+                  ),
                             ),
                             alignment: Alignment.centerLeft,
                             margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),

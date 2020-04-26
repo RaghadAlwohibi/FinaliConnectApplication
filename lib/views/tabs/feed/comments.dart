@@ -109,9 +109,9 @@ class CommentsState extends State<Comments> {
                 trailing: OutlineButton(
                     onPressed: () {
                       Firestore.instance
-                          .collection("Notifications")
+                          .collection("notifications")
                           .document(cret)
-                          .collection("Notifications")
+                          .collection("notifications")
                           .document()
                           .setData({
                         "name": auth.currentUser.name,

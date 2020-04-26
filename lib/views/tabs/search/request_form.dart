@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iconnect/utils/colors.dart';
+import 'package:iconnect/widgets/alert_dialog.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,10 +56,8 @@ class _RequestAdPageState extends State<RequestAdPage> {
     await firestore.collection('Ad_Requests').add({
       'picture': imageFileURL,
       'category': categoryValue,
-      'date': selectedDate.millisecondsSinceEpoch,
       'description': description,
       'businessName': businessName,
-      'duration': dropdownValue,
       'state': 'waiting'
     });
   }
@@ -191,42 +191,6 @@ class _RequestAdPageState extends State<RequestAdPage> {
       ),
     );
 
-    final datepicker = IconButton(
-      icon: Icon(LineIcons.calendar),
-      onPressed: () {
-        DatePicker.showDatePicker(context,
-            showTitleActions: true,
-            minTime: DateTime(2000, 1, 1),
-            maxTime: DateTime(2020, 12, 31), onChanged: (date) {
-          print('change $date');
-        }, onConfirm: (date) {
-          selectedDate = date;
-        }, currentTime: DateTime.now(), locale: LocaleType.en);
-      },
-    );
-
-    final duration = DropdownButton<String>(
-      value: dropdownValue,
-      iconSize: 24,
-      elevation: 16,
-      style: TextStyle(color: Colors.grey),
-      underline: Container(
-        height: 2,
-        color: Colors.black,
-      ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>['One Week', 'Two Weeks', 'One Month']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
 
     Future<bool> handleError(String outputText) {
       return showDialog(
@@ -273,14 +237,29 @@ class _RequestAdPageState extends State<RequestAdPage> {
           child: MaterialButton(
             onPressed: () {
               if (businessName == null) {
-                handleError('Business name can not be empty!');
+                return showDialog(
+        context: context,
+        builder: (ctx) => CustomAlertDialog(
+              headerText: 'Alert',
+              errorMessage: 'Business name can not be empty!',
+            ));
               } else if (description == null) {
-                handleError('Description can not be empty');
-              } else if (selectedDate == null) {
-                handleError('Please select a date');
-              } else if (imageFileURL == null) {
-                handleError('Image cannot be empty');
-              } else {
+                return showDialog(
+        context: context,
+        builder: (ctx) => CustomAlertDialog(
+              headerText: 'Alert',
+              errorMessage: 'Description can not be empty!',
+            ));
+              }  
+        //       else if (imageFileURL == null) {
+        //         return showDialog(
+        // context: context,
+        // builder: (ctx) => CustomAlertDialog(
+        //       headerText: 'Alert',
+        //       errorMessage: 'Image can not be empty!',
+        //     ));
+        //       } 
+              else {
                 uploadData();
                 Navigator.pop(context);
               }
@@ -314,8 +293,7 @@ class _RequestAdPageState extends State<RequestAdPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        datepicker,
-                        duration,
+                        
                       ],
                     ),
                     submitBtn,
@@ -342,7 +320,7 @@ class _RequestAdPageState extends State<RequestAdPage> {
           borderSide: BorderSide(color: Colors.black38),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange),
+          borderSide: BorderSide(color: primaryColor),
         ),
       ),
       keyboardType: TextInputType.text,
@@ -373,7 +351,7 @@ class _RequestAdPageState extends State<RequestAdPage> {
           borderSide: BorderSide(color: Colors.black38),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange),
+          borderSide: BorderSide(color: primaryColor),
         ),
       ),
       validator: (value) {

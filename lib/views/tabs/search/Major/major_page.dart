@@ -197,9 +197,7 @@ elevation: 0,
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Icon(Icons.comment,
-                                            color: Colors.grey,),
-                                            SizedBox(
+                                             SizedBox(
                                               width: 20,
                                             ),
                                             FittedBox(

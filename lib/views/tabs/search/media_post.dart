@@ -49,20 +49,35 @@ class _MediaPostState extends State<MediaPost> {
         .add({'text': inputText ?? " ", 'attach': imgUrl});
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(30.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Enter post here...',
+          Form(
+            key: _formKey,
+            child: TextFormField(
+              style: TextStyle(
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                hintText: 'Write your post here...',
+              ),
+              onChanged: (value) {
+                inputText = value;
+              },
+              validator: (value) {
+                if (value.isEmpty && _imageFile == null) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
             ),
-            onChanged: (value) {
-              inputText = value;
-            },
           ),
           SizedBox(
             height: 20.0,
@@ -70,6 +85,9 @@ class _MediaPostState extends State<MediaPost> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
+              SizedBox(
+            height: 15.0,
+          ),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -81,7 +99,7 @@ class _MediaPostState extends State<MediaPost> {
                 child: FlatButton(
                   onPressed: () => _pickImage(ImageSource.gallery),
                   child: Text(
-                    'Image',
+                    'Attach image',
                     style: TextStyle(
                       color: Color(0xFF79bda0),
                     ),
@@ -96,15 +114,6 @@ class _MediaPostState extends State<MediaPost> {
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: FlatButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Document',
-                    style: TextStyle(
-                      color: Color(0xFF79bda0),
-                    ),
-                  ),
-                ),
               ),
             ],
           ),
@@ -114,11 +123,13 @@ class _MediaPostState extends State<MediaPost> {
           RaisedButton(
             color: Color(0xFF79bda0),
             onPressed: () {
-              saveImage(_imageFile);
-              Navigator.pop(context);
+              if (_formKey.currentState.validate()) {
+                saveImage(_imageFile);
+                Navigator.pop(context);
+              }
             },
             child: Text(
-              'Sumbit',
+              'Post',
               style: TextStyle(
                 color: Colors.white,
               ),

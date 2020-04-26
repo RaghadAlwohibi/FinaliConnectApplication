@@ -1,8 +1,10 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:iconnect/_routing/routes.dart';
 import 'package:iconnect/core/services/auth.dart';
 import 'package:iconnect/utils/colors.dart';
 import 'package:iconnect/widgets/admin_button.dart';
+import 'package:iconnect/widgets/mycircleavatar.dart.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -68,16 +70,25 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     Row(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(right: 8.0, bottom: 10.0),
-                          height: 65.0,
-                          width: 65.0,
+                          width: 70,
+                          height: 70,
                           decoration: BoxDecoration(
-                            boxShadow: [myBoxShadow],
-                            image: DecorationImage(
-                              image: NetworkImage(model.currentUser.photo),
-                              fit: BoxFit.cover,
-                            ),
                             shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 3,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(.3),
+                                  offset: Offset(0, 2),
+                                  blurRadius: 5)
+                            ],
+                          ),
+                          child: CircleAvatar(
+                            radius: 23,
+                            backgroundImage:
+                                NetworkImage(model.currentUser.photo),
                           ),
                         ),
                         SizedBox(
@@ -86,12 +97,15 @@ class _AdminHomePageState extends State<AdminHomePage> {
                         Text(model.currentUser.email)
                       ],
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
                     Divider(
                       color: Colors.grey,
-                      thickness: 2,
+                      thickness: 1,
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     AdminButton(
                       onClick: () {

@@ -6,8 +6,6 @@ class AdRequest {
   String category;
   String description;
   String businessName;
-  DateTime date;
-  String duration;
   String state;
   AdRequest({
     this.id,
@@ -15,8 +13,7 @@ class AdRequest {
     this.category,
     this.description,
     this.businessName,
-    this.date,
-    this.duration,
+    
     this.state,
   });
 
@@ -26,8 +23,6 @@ class AdRequest {
     String category,
     String description,
     String businessName,
-    DateTime date,
-    String duration,
     String state,
   }) {
     return AdRequest(
@@ -36,8 +31,7 @@ class AdRequest {
       category: category ?? this.category,
       description: description ?? this.description,
       businessName: businessName ?? this.businessName,
-      date: date ?? this.date,
-      duration: duration ?? this.duration,
+      
       state: state ?? this.state,
     );
   }
@@ -49,8 +43,6 @@ class AdRequest {
       'category': category,
       'description': description,
       'businessName': businessName,
-      'date': date.millisecondsSinceEpoch,
-      'duration': duration,
       'state': state,
     };
   }
@@ -64,8 +56,6 @@ class AdRequest {
       category: map['category'],
       description: map['description'],
       businessName: map['businessName'],
-      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
-      duration: map['duration'],
       state: map['state'],
     );
   }
@@ -74,7 +64,7 @@ class AdRequest {
 
   @override
   String toString() {
-    return 'AdRequest(id: $id, picture: $picture, category: $category, description: $description, businessName: $businessName, date: $date, duration: $duration, state: $state)';
+    return 'AdRequest(id: $id, picture: $picture, category: $category, description: $description, businessName: $businessName, state: $state)';
   }
 
   @override
@@ -87,8 +77,7 @@ class AdRequest {
         o.category == category &&
         o.description == description &&
         o.businessName == businessName &&
-        o.date == date &&
-        o.duration == duration &&
+        
         o.state == state;
   }
 
@@ -99,8 +88,7 @@ class AdRequest {
         category.hashCode ^
         description.hashCode ^
         businessName.hashCode ^
-        date.hashCode ^
-        duration.hashCode ^
+        
         state.hashCode;
   }
 }

@@ -11,8 +11,14 @@ class AdminAdRequests extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildSharedAppBar(context, '',
-          leading: buidSharedBackButton(context)),
+      appBar: buildSharedAppBar(context, 'Advertisment Requests',
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+          ),),
       body: FutureBuilder(
         future: locator<Database>().getAllAdRequests(),
         builder: (ctx, AsyncSnapshot<List<AdRequest>> snap) {
@@ -27,7 +33,7 @@ class AdminAdRequests extends StatelessWidget {
               return Center(child: Text('No Requests Found'));
             else
               return ListView.builder(
-                itemBuilder: (ctx, index) {
+                  itemBuilder: (ctx, index) {
                   return AdRequestListItem(
                     adRequest: list[index],
                   );

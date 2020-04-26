@@ -145,9 +145,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   controller: _pageController,
                   children: <Widget>[
                     UserPosts(),
-                    UserLikedPosts(
-                      posts: posts,
-                    ),
                     UserFollowings(),
                   ],
                 ),

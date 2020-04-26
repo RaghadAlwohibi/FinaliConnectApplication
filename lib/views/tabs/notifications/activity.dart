@@ -18,9 +18,9 @@ class ActivityScreenState extends State<ActivityScreen> {
     return Consumer<Auth>(builder: (ctx, auth, child) {
       return StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance
-              .collection("Notifications")
+              .collection("notifications")
               .document(auth.currentUser.id)
-              .collection("Notifications")
+              .collection("notifications")
               .orderBy('time', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
@@ -65,9 +65,9 @@ class ActivityScreenState extends State<ActivityScreen> {
                             children: <Widget>[
                               new Text(
                                 doc["name"],
-                                style: new TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                               style: Theme.of(context).textTheme.subhead.apply(
+                    color: Colors.black
+                  ),
                               ),
                               new Text(
                                 timeago.format(doc["time"].toDate()),

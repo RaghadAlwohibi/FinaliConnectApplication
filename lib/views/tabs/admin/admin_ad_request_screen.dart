@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:iconnect/core/services/database.dart';
 import 'package:iconnect/locator.dart';
 import 'package:iconnect/models/ad_request.dart';
+import 'package:iconnect/utils/colors.dart';
+import 'package:iconnect/views/tabs/notifications/fullPhoto.dart';
 import 'package:line_icons/line_icons.dart';
 
 class AdminRequestAdPage extends StatefulWidget {
@@ -20,13 +22,21 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = Padding(
-      padding: EdgeInsets.only(bottom: 40.0),
-    );
+    final appBar = Row(children: <Widget>[
+      FlatButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+      ),
+    ]);
 
     final pageTitle = Container(
       child: Text(
-        "Ad Request",
+        "Advertisment Request",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -55,7 +65,7 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                   borderSide: BorderSide(color: Colors.black38),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+                  borderSide: BorderSide(color: primaryColor),
                 ),
               ),
               initialValue: widget.adRequest.businessName,
@@ -86,13 +96,28 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                         borderSide: BorderSide(color: Colors.black38),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orange),
+                        borderSide: BorderSide(color: primaryColor),
                       ),
                     ),
                     keyboardType: TextInputType.text,
                   ),
                 ),
               ],
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FullPhoto(url: widget.adRequest.picture)));
+              },
+              child: Image.network(
+                widget.adRequest.picture,
+                fit: BoxFit.cover,
+                width: 380.0,
+                height: 335,
+              ),
             ),
             formFieldSpacing,
             TextFormField(
@@ -108,7 +133,7 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                   borderSide: BorderSide(color: Colors.black38),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.orange),
+                  borderSide: BorderSide(color: primaryColor),
                 ),
               ),
               keyboardType: TextInputType.text,
@@ -136,31 +161,7 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                     registerForm,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 5,
-                          child: Text('Duration'),
-                        ),
-                        Flexible(
-                          flex: 5,
-                          child: TextFormField(
-                            readOnly: true,
-                            initialValue: widget.adRequest.duration,
-                            decoration: InputDecoration(
-                              labelStyle: TextStyle(color: Colors.black),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black38),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.orange),
-                              ),
-                            ),
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(color: Colors.black),
-                            cursorColor: Colors.black,
-                          ),
-                        ),
-                      ],
+                      children: <Widget>[],
                     ),
                     formFieldSpacing,
                     Row(
@@ -170,22 +171,24 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                           fit: FlexFit.tight,
                           child: RaisedButton(
                             elevation: 5.0,
-                            onPressed: () async {
-                              await locator<Database>().changeAdRequestState(
+                            onPressed: () {
+                              locator<Database>().changeAdRequestState(
                                   'accepted', widget.adRequest.id);
 
                               Navigator.of(context).pop();
                             },
-                            color: Theme.of(context).primaryColor,
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
+                            color: primaryColor,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12.0, horizontal: 40.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
                             ),
                             child: Text(
                               'Accept',
                               style: Theme.of(context)
                                   .textTheme
                                   .button
-                                  .copyWith(fontSize: 18),
+                                  .copyWith(fontSize: 15),
                             ),
                           ),
                         ),
@@ -197,25 +200,27 @@ class _AdminRequestAdPageState extends State<AdminRequestAdPage> {
                           fit: FlexFit.tight,
                           child: RaisedButton(
                             elevation: 5.0,
-                            onPressed: () async {
-                              await locator<Database>().changeAdRequestState(
+                            onPressed: () {
+                              locator<Database>().changeAdRequestState(
                                   'denied', widget.adRequest.id);
 
                               Navigator.of(context).pop();
                             },
-                            color: Theme.of(context).primaryColor,
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
+                            color: primaryColor,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12.0, horizontal: 40.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(18.0),
                             ),
                             child: Text(
                               'Deny',
                               style: Theme.of(context)
                                   .textTheme
                                   .button
-                                  .copyWith(fontSize: 18),
+                                  .copyWith(fontSize: 15),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     )
                   ],

@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            bottom: totalHeight * 0.008,
+            bottom: totalHeight * 0.0,
           ),
           Positioned(
             child: GestureDetector(

@@ -14,7 +14,7 @@ class Database {
   final usersRef = Firestore.instance.collection('users');
   final postRef = Firestore.instance.collection('posts');
   final adRequestsRef = Firestore.instance.collection('Ad_Requests');
-
+  final adRef = Firestore.instance.collection('advertisements');
 
   Database({this.userId});
 
@@ -40,12 +40,21 @@ class Database {
     return postRef.snapshots();
   }
 
+  Stream<QuerySnapshot> adSnapshot() {
+    return adRef.snapshots();
+  }
+
   List<Post> convertToPostModel(QuerySnapshot snap) {
     return snap.documents.map((DocumentSnapshot doc) {
       return Post.fromJson(doc.data);
     }).toList();
   }
 
+  List<Ads> convertToAdModel(QuerySnapshot snap) {
+    return snap.documents.map((DocumentSnapshot doc) {
+      return Ads.fromMap(doc.data);
+    }).toList();
+  }
 
   Future<List<AdRequest>> getAllAdRequests() async {
     var docsSnap =
@@ -63,9 +72,19 @@ class Database {
     return convertToPostModel(snap);
   }
 
+  Future<List<Ads>> fetchAds() async {
+    var snap = await adRef.orderBy('date', descending: true).getDocuments();
+    return convertToAdModel(snap);
+  }
 
   Future changeAdRequestState(String newState, String id) async {
     await adRequestsRef.document(id).updateData({'state': newState});
+
+    if (newState == 'accepted') {
+      var doc = await adRequestsRef.document(id).get();
+      AdRequest request = AdRequest.fromMap(doc.data, id);
+      adRef.add(request.toMap());
+    }
   }
 
   Future<List<Post>> fetchUserPosts() async {

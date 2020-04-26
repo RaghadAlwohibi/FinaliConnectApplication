@@ -1,9 +1,13 @@
+import 'package:ant_icons/ant_icons.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:iconnect/models/post.dart';
 import 'package:iconnect/utils/colors.dart';
 import 'package:iconnect/views/tabs/feed/progress.dart';
 import 'package:iconnect/views/tabs/feed/comments.dart';
+import 'package:iconnect/views/tabs/notifications/fullPhoto.dart';
+import 'package:iconnect/widgets/mycircleavatar.dart.dart';
 
 import 'package:time_formatter/time_formatter.dart';
 
@@ -34,17 +38,24 @@ class _LostPostsState extends State<LostPosts> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: StreamBuilder<QuerySnapshot>(
-         stream: Firestore.instance.collection("posts").orderBy('createdAt', descending: true)
-              .snapshots(),
+        stream: Firestore.instance
+            .collection("posts")
+            .orderBy('createdAt', descending: true)
+            .snapshots(),
         builder: (context, doc) {
           return StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection("users").snapshots(),
               builder: (context, snapshot) {
                 if (doc.hasError || snapshot.hasError || !snapshot.hasData)
                   return circularProgress();
+                if (!snapshot.hasData)
+                  return Center(child: Text('No Posts Found'));
                 switch (doc.connectionState) {
                   case ConnectionState.waiting:
-                    return circularProgress();
+                    return SpinKitFadingCircle(
+                      color: Colors.white,
+                      size: 50,
+                    );
                   default:
                     return ListView(
                         children: doc.data.documents.map(
@@ -74,7 +85,7 @@ class _LostPostsState extends State<LostPosts> {
                             padding: EdgeInsets.all(20),
                             height: totalHeight * 0.75,
                             decoration: BoxDecoration(
-                             // color: scaffoldBackgroundColor,
+                              // color: scaffoldBackgroundColor,
                               border: Border.all(
                                   color: appBarBorderColor, width: 2),
                               shape: BoxShape.rectangle,
@@ -84,114 +95,153 @@ class _LostPostsState extends State<LostPosts> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                               Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          right: 8.0, bottom: 10.0),
-                                      height: 50.0,
-                                      width: 50.0,
-                                      decoration: BoxDecoration(
-                                        boxShadow: [myBoxShadow],
-                                        image: DecorationImage(
-                                          image:
-                                              NetworkImage(user.data["photo"]),
-                                          fit: BoxFit.cover,
-                                        ),
-                                        shape: BoxShape.circle,
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            child: MyCircleAvatar(
+                                              imgUrl: user.data['photo'],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    user.data["name"],
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .subhead
+                                                        .apply(
+                                                            color:
+                                                                Colors.black),
+                                                  ),
+                                                  Text(
+                                                    "@" + user.data["username"],
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          user.data["name"],
-                                          textAlign: TextAlign.left,
-                                          style:
-                                              Theme.of(context).textTheme.title,
-                                        ),
-                                        if (!user.data["isAdmin"])
-                                          Text(
-                                            '@${user.data["username"]}',
-                                            textAlign: TextAlign.left,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle,
-                                          ),
-                                      ],
-                                    ),
-                                    Spacer(),
                                   ],
                                 ),
+                                 SizedBox(height: 10,),
                                 Flexible(
-                                  fit: FlexFit.tight,
-                                  flex: 8,
-                                  child: Image.network(
-                                    doc["imageUrl"],
+                                  
+                                    fit: FlexFit.tight,
+                                    flex: 8,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => FullPhoto(
+                                                    url: doc["imageUrl"])));
+                                      },
+                                      child: Image.network(
+                                        doc["imageUrl"],
 
-                                    fit: BoxFit.cover,
-                                    //height: 400,
-                                    width: double.infinity,
-                                  ),
-                                ),
+                                        fit: BoxFit.cover,
+                                        
+                              width: 380.0,
+                              height: 335,
+                                      ),
+                                    )),
+                                    SizedBox(height: 10,),
                                 Row(
                                   children: <Widget>[
                                     GestureDetector(
-                                      onTap: () {
-                                        List<dynamic> list =
-                                            List.from(doc["likes"]);
-                                        if (!list.contains(
-                                            widget.auth.currentUser.id)) {
-                                          list.add(widget.auth.currentUser.id);
-                                          Firestore.instance
-                                              .collection("posts")
-                                              .document(doc["id"])
-                                              .updateData({"likes": list});
-                                        } else {
-                                          var b = list.remove(
-                                              widget.auth.currentUser.id);
-                                          if (b) {
-                                            Firestore.instance
-                                                .collection("posts")
-                                                .document(doc["id"])
-                                                .updateData({"likes": list});
-                                          }
-                                        }
-                                      },
+                                       onTap: () {
+                                              print(widget.auth.currentUser.id);
+                                              List<dynamic> list =
+                                                  List.from(doc['likes']);
+                                              if (!list.contains(
+                                                  widget.auth.currentUser.id)) {
+                                                list.add(
+                                                    widget.auth.currentUser.id);
+                                                Firestore.instance
+                                                    .collection("posts")
+                                                    .document(doc["id"])
+                                                    .updateData(
+                                                        {"likes": list});
+                                                Firestore.instance
+                                                    .collection("Notifications")
+                                                    .document(user.data["id"])
+                                                    .collection("Notifications")
+                                                    .document()
+                                                    .setData({
+                                                  "name": widget
+                                                      .auth.currentUser.name,
+                                                  "message": "Liked you post",
+                                                  "time": timestamps,
+                                                  "avatarUrl": widget
+                                                      .auth.currentUser.photo
+                                                });
+                                                //setState(() {});
+                                              } else {
+                                                var b = list.remove(
+                                                    widget.auth.currentUser.id);
+                                                if (b) {
+                                                  Firestore.instance
+                                                      .collection("posts")
+                                                      .document(doc["id"])
+                                                      .updateData(
+                                                          {"likes": list});
+                                                  //setState(() {});
+                                                }
+                                              }
+                                            },
                                       child: Row(
                                         children: <Widget>[
                                           Icon(
-                                            Icons.favorite_border,
+                                            AntIcons.heart_outline,
                                             color: _color(),
                                           ),
                                           Center(
-                                          
-                                              
-                                              child: Center(
-                                                child: Text(
-                                                  (list.length).toString()+ ' likes',
-                                                  style:
-                                                      TextStyle(fontSize: 15),
-                                                ),
+                                            child: Center(
+                                              child: Text(
+                                                (list.length).toString() +
+                                                    ' likes',
+                                                style: TextStyle(fontSize: 15),
                                               ),
-                                          
+                                            ),
                                           )
                                         ],
                                       ),
                                     ),
                                     SizedBox(width: 10),
                                     GestureDetector(
-                                      // onTap: () => showComments(
-                                      //   context,
-                                      //   id: doc["id"],
-                                      //   //   imageUrl:widget.post.imageUrl,
-                                      // ),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Comments(
+                                                  postid: doc["id"],
+                                                  cret: doc["creator"]
+                                                  //   pimageUrl:  doc["imageUrl"],
+                                                  )),
+                                        );
+                                      },
                                       child: Icon(
-                                        (Icons.chat),
+                                        (AntIcons.message_outline),
                                         color: Colors.grey,
                                       ),
                                     ),
@@ -263,7 +313,7 @@ class _LostPostsState extends State<LostPosts> {
                             ),
                           );
                         } else {
-                          return Container(child: Text('no lost item post'),);
+                          return Container();
                         }
                       },
                     ).toList());

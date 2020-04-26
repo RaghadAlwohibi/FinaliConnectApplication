@@ -3,6 +3,7 @@ import 'package:iconnect/_routing/routes.dart';
 import 'package:iconnect/models/ad_request.dart';
 import 'package:iconnect/utils/colors.dart';
 import 'package:iconnect/utils/utils.dart';
+import 'package:iconnect/widgets/mycircleavatar.dart.dart';
 
 class AdRequestListItem extends StatefulWidget {
   AdRequestListItem({
@@ -32,40 +33,41 @@ class _AdRequestListItemState extends State<AdRequestListItem> {
         padding: EdgeInsets.all(10),
         height: 100,
         decoration: BoxDecoration(
-            color: instructorListColor,
+            //color: instructorListColor,
             border: Border.all(color: appBarBorderColor, width: 2)),
         child: Row(
+          
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(right: 8.0, bottom: 10.0),
-              height: 60.0,
-              width: 60.0,
-              decoration: BoxDecoration(
-                boxShadow: [myBoxShadow],
-                color: Colors.white,
-                image: DecorationImage(
-                  image: widget.adRequest.picture == null
-                      ? AssetImage(AvailableImages.adsImage)
-                      : NetworkImage(widget.adRequest.picture),
-                  fit: BoxFit.cover,
-                ),
-                shape: BoxShape.circle,
-              ),
-            ),
+            
+            MyCircleAvatar(imgUrl: widget.adRequest.picture),
             SizedBox(
               width: 10,
             ),
-            Text(
-              widget.adRequest.category,
-              textAlign: TextAlign.left,
-              style: Theme.of(context)
-                  .textTheme
-                  .title
-                  .copyWith(fontSize: 18, fontWeight: FontWeight.w400),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(widget.adRequest.businessName,
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subhead
+                        .apply(color: Colors.black)),
+                Text(
+                  widget.adRequest.category,
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w400),
+                  overflow: TextOverflow.clip,
+                ),
+              ],
             ),
+            
             Spacer(),
+            Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),

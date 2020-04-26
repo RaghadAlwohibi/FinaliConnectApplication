@@ -31,24 +31,29 @@ class EvPosts extends StatelessWidget {
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot> postsSnapshot) {
             if (postsSnapshot.hasError) return circularProgress();
+             if (!postsSnapshot.hasData)
+                  return Center(child: Text('No Posts Found'));
             switch (postsSnapshot.connectionState) {
               case ConnectionState.waiting:
-                return circularProgress();
+                return SpinKitFadingCircle(
+                  color: Colors.white,
+                  size: 50,
+                );
               default:
                 return ListView(
                   children: postsSnapshot.data.documents.map(
                     (DocumentSnapshot doc) {
-                      List<dynamic> list = List.from(doc['likes']);
+                      //List<dynamic> list = List.from(doc['likes']);
 
                       if (doc['type'] == 4) {
-                        _color() {
-                          List<dynamic> list = List.from(doc['likes']);
-                          if (list.contains(auth.currentUser.id)) {
-                            return Colors.red;
-                          } else {
-                            return Colors.black;
-                          }
-                        }
+                        // _color() {
+                        //   List<dynamic> list = List.from(doc['likes']);
+                        //   if (list.contains(auth.currentUser.id)) {
+                        //     return Colors.red;
+                        //   } else {
+                        //     return Colors.black;
+                        //   }
+                        // }
 
                         var height2 = MediaQuery.of(context).size.height / 2.7;
                         return Card(
@@ -78,12 +83,9 @@ class EvPosts extends StatelessWidget {
                                       child: Container(
                                         decoration: BoxDecoration(
                                             image: new DecorationImage(
-                                              
                                                 image: new NetworkImage(
                                                   doc["imageUrl"],
-                                                  
                                                 ),
-                                                
                                                 fit: BoxFit.fitWidth),
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(25.0),
@@ -100,7 +102,6 @@ class EvPosts extends StatelessWidget {
                                               MainAxisAlignment.start,
                                           children: <Widget>[
                                             Expanded(
-                                              
                                               child: Align(
                                                 alignment: Alignment.topLeft,
                                                 child: Padding(
@@ -128,8 +129,7 @@ class EvPosts extends StatelessWidget {
                                                           Navigator.of(context)
                                                               .pushNamed(
                                                         evdetailPage,
-                                                        arguments:
-                                                            doc,
+                                                        arguments: doc,
                                                       ),
                                                       child: Text(
                                                         "Show more >",
@@ -150,7 +150,9 @@ class EvPosts extends StatelessWidget {
                               ),
                             ));
                       } else {
-                        return Container(child: Text('no events found'),);
+                        return Container(
+                         
+                        );
                       }
                     },
                   ).toList(),

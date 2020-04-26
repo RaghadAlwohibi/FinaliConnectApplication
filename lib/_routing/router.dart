@@ -23,6 +23,7 @@ import 'package:iconnect/views/tabs/profile/edit_profile.dart';
 import 'package:iconnect/views/tabs/profile/profile_page.dart';
 import 'package:iconnect/views/tabs/search/ads/adP.dart';
 import 'package:iconnect/views/tabs/search/ads/adsitem.dart';
+import 'package:iconnect/views/tabs/search/request_form.dart';
 import 'package:iconnect/views/tabs/search/events/evP.dart';
 import 'package:iconnect/views/tabs/search/events/eventitem.dart';
 import 'package:iconnect/views/tabs/search/lostitem/lostP.dart';

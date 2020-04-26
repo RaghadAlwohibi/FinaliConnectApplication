@@ -69,9 +69,7 @@ class _CourseReviewState extends State<CourseReview> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: <Widget>[
-                                            Icon(Icons.comment,
-                                            color: Colors.grey,),
-                                            SizedBox(
+                                             SizedBox(
                                               width: 20,
                                             ),
                                             FittedBox(
