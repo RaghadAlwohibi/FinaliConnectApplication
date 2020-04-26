@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconnect/models/course.dart';
 import 'package:iconnect/utils/colors.dart';
 import 'package:iconnect/views/tabs/search/Course/course.dart';
 
@@ -52,12 +51,17 @@ class _CourseItemState extends State<CourseItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+           
             Container(
-              alignment: Alignment.center,
-              child: Text(widget.course.substring(
+              child: Row(children: <Widget>[
+                SizedBox(width: 5.5),
+                Text(widget.course.substring(
                   widget.course.lastIndexOf("++") + 2,
-                  widget.course.lastIndexOf("--"))),
-              margin: EdgeInsets.only(right: 8.0, bottom: 10.0),
+                  widget.course.lastIndexOf("--")), style: TextStyle(fontSize: 12))
+              ],)
+               ,
+
+              margin: EdgeInsets.only(right: 0.0, bottom: 10.0),
               height: 60.0,
               width: 60.0,
               decoration: BoxDecoration(
@@ -67,7 +71,7 @@ class _CourseItemState extends State<CourseItem> {
               ),
             ),
             SizedBox(
-              width: 10,
+              width: 6.0,
             ),
             Text(
               widget.course.substring(0, widget.course.lastIndexOf("/")),
