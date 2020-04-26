@@ -1,4 +1,3 @@
-import 'package:iconnect/utils/utils.dart';
 
 class User {
   String id;
