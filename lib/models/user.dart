@@ -1,3 +1,5 @@
+import 'package:iconnect/models/courses.dart';
+import 'package:iconnect/utils/utils.dart';
 
 class User {
   String id;
@@ -8,7 +10,7 @@ class User {
   bool isAdmin = false;
   String username;
   String bio;
-  List<String> followed_courses;
+  List<dynamic> followed_courses;
   User(
       {this.id,
       this.email,

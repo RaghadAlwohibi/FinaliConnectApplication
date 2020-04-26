@@ -40,6 +40,7 @@ class _CourseListState extends State<CourseList> {
         courseId: coursesList[indexNum].id,
         courseCredit: coursesList[indexNum].credit,
         courseLab: coursesList[indexNum].lab,
+        numb: indexNum,
       );
     }));
   }
@@ -48,13 +49,13 @@ class _CourseListState extends State<CourseList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-elevation: 0,
-    brightness: Brightness.light,
-    backgroundColor: scaffoldBackgroundColor,
-    title: Text(
-      "Courses",
-      style: Theme.of(context).textTheme.title,
-    ),
+        elevation: 0,
+        brightness: Brightness.light,
+        backgroundColor: scaffoldBackgroundColor,
+        title: Text(
+          "Courses",
+          style: Theme.of(context).textTheme.title,
+        ),
         leading: FlatButton(
           onPressed: () {
             Navigator.pop(context);
@@ -65,7 +66,6 @@ elevation: 0,
           ),
         ),
         centerTitle: true,
-        
       ),
       body: Column(
         children: <Widget>[
@@ -122,7 +122,6 @@ elevation: 0,
               ),
             ),
           ),
-          
         ],
       ),
 //      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
