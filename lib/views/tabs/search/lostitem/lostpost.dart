@@ -266,13 +266,15 @@ class _LostPostsState extends State<LostPosts> {
                                   flex: 1,
                                   child: Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      doc["location"],
+                                    child: 
+                                       Text(
+                                      "Location: " + doc["location"],
                                       textAlign: TextAlign.left,
                                       style: Theme.of(context).textTheme.body1,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
+                                   
                                   ),
                                 ),
                                 Divider(),
@@ -298,10 +300,12 @@ class _LostPostsState extends State<LostPosts> {
                                       child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Time: ${formatTime(doc["createdAt"])}',
+                                          'Found ${formatTime(doc["createdAt"])}',
                                           textAlign: TextAlign.left,
-                                          style:
-                                              Theme.of(context).textTheme.body1,
+                                          style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 13.0,
+                                            fontWeight: FontWeight.w400),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),

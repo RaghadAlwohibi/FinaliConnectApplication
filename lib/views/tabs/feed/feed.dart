@@ -267,7 +267,8 @@ class _PostnState extends State<Postn> {
                                                 ],
                                               ),
                                               SizedBox(
-                                                width: 180,
+                                                width: 155,
+                                              
                                               ),
                                               IconButton(
                                                 icon: Icon(
@@ -995,7 +996,7 @@ class _PostnState extends State<Postn> {
                                                 ],
                                               ),
                                               SizedBox(
-                                                width: 180,
+                                                width: 155,
                                               ),
                                               IconButton(
                                                 icon: Icon(
@@ -1679,7 +1680,7 @@ class _PostnState extends State<Postn> {
                                                 ],
                                               ),
                                               SizedBox(
-                                                width: 180,
+                                                width: 155,
                                               ),
                                               IconButton(
                                                 icon: Icon(
