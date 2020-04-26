@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconnect/_routing/routes.dart';
 import 'package:iconnect/views/home.dart';
-
 import 'package:iconnect/views/tabs/Search/Club/club_list.dart';
 import 'package:iconnect/views/tabs/Search/Course/coures_list.dart';
 import 'package:iconnect/views/tabs/Search/Instructor/instructor_list.dart';
@@ -11,12 +10,10 @@ import 'package:iconnect/views/tabs/admin/admin_ad_requests.dart';
 import 'package:iconnect/views/tabs/admin/admin_home_screen.dart';
 import 'package:iconnect/views/tabs/admin/admin_new_post.dart';
 import 'package:iconnect/views/tabs/feed/feed.dart';
-
 import 'package:iconnect/views/tabs/login/landing.dart';
 import 'package:iconnect/views/tabs/login/login.dart';
 import 'package:iconnect/views/tabs/notifications/notifications.dart';
 import 'package:iconnect/views/tabs/posts/new_post.dart';
-
 import 'package:iconnect/views/tabs/login/register.dart';
 import 'package:iconnect/views/tabs/login/reset_password.dart';
 import 'package:iconnect/views/tabs/profile/edit_profile.dart';

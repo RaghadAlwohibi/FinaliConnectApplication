@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconnect/utils/colors.dart';
-
-
 import 'activity.dart';
 import 'chatlist.dart';
 //import 'package:outline_material_icons/outline_material_icons.dart';

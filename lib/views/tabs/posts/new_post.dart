@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:iconnect/core/services/auth.dart';
 import 'package:iconnect/core/services/database.dart';
 import 'package:iconnect/locator.dart';
