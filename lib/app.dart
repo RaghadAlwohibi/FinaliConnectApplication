@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iconnect/_routing/routes.dart';
 import 'package:iconnect/_routing/router.dart' as router;
-
 import 'package:iconnect/core/services/auth.dart';
 import 'package:iconnect/theme.dart';
 import 'package:iconnect/utils/colors.dart';

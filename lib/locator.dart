@@ -1,11 +1,8 @@
 import 'package:get_it/get_it.dart';
-
 import 'package:iconnect/core/services/database.dart';
 import 'package:iconnect/core/services/post_service.dart';
-
 import 'package:iconnect/core/view_models/feed_model.dart';
 import 'package:iconnect/core/view_models/lostitem_model.dart';
-
 import 'core/view_models/like_model.dart';
 
 GetIt locator = GetIt.instance;
